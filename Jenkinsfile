@@ -6,12 +6,12 @@ node {
         checkout scm
 
     stage 'Artifactory configuration'
-        rtGradle.deployer repo:'gradle-dev-local', server: server
+        rtGradle.deployer repo:'libs-snapshot-local', server: server
         rtGradle.resolver repo:'remote-repos', server: server
         rtGradle.useWrapper = true
 
     stage 'Exec Gradle'
-        def buildInfo = rtGradle.run rootDir: "./", buildFile: 'build.gradle', tasks: 'clean artifactoryPublish'
+        def buildInfo = rtGradle.run rootDir: "./", buildFile: 'build.gradle', tasks: 'clean build artifactoryPublish'
 
     stage 'Publish build info'
         server.publishBuildInfo buildInfo
