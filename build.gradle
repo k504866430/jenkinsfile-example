@@ -1,12 +1,19 @@
+buildscript {
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '1.5.1.RELEASE'
+    //id 'com.palantir.docker' version '0.12.0'
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 //apply plugin: "com.jfrog.artifactory"
-
+apply plugin: 'docker'
 
 //eclipse plugin configuration
 eclipse.classpath.file {
@@ -26,15 +33,28 @@ repositories {
     mavenCentral()
 }
 
+group = 'com.kruttik'
+version =  '0.1.0'
+
 jar {
-    baseName = 'jenkinsfile-example'
-    version =  '0.1.0'
+    manifest.attributes provider: 'gradle'
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-//mainClassName = 'hello.HelloWorld'
+task buildDocker(type: Docker, dependsOn: build) {
+  //push = true
+  applicationName = jar.baseName
+  dockerfile = file('Dockerfile')
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      rename("${stageDir}/${jar.archiveName}", "${stageDir}/${jar.baseName}.${jar.extension}") 
+    }
+  }
+}
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web") {
