@@ -1,4 +1,4 @@
-buildscript {
+/*buildscript {
     repositories {
         jcenter()
         
@@ -7,7 +7,7 @@ buildscript {
         //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
     }
-}
+}*/
 
 plugins {
     id 'org.springframework.boot' version '1.5.1.RELEASE'
@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
-apply plugin: "com.jfrog.artifactory"
+//apply plugin: "com.jfrog.artifactory"
 
 
 //eclipse plugin configuration
@@ -58,7 +58,7 @@ dependencies {
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
 
-artifactory {
+/*artifactory {
     contextUrl = "http://localhost:8081/artifactory"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
@@ -68,6 +68,6 @@ artifactory {
             maven = true
         }
     }
-}
+}*/
 
 
