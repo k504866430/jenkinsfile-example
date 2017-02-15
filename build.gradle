@@ -1,6 +1,11 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.1.RELEASE'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
+
 
 //eclipse plugin configuration
 eclipse.classpath.file {
@@ -11,6 +16,7 @@ eclipse.classpath.file {
         classpath.entries.findAll { entry -> entry.kind == 'lib' }*.exported = false
     }
 }
+
 eclipse.project.file.beforeMerged { project ->
     project.natures.clear()
 }
@@ -19,17 +25,25 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-mainClassName = 'hello.HelloWorld'
-
-dependencies {
-    compile "joda-time:joda-time:2.2"
-    testCompile "junit:junit:4.12"
-}
-
 jar {
     baseName = 'jenkinsfile-example'
     version =  '0.1.0'
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//mainClassName = 'hello.HelloWorld'
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile "org.springframework.boot:spring-boot-starter-jetty"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "joda-time:joda-time:2.2"
+    testCompile "junit:junit:4.12"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+
