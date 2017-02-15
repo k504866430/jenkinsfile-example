@@ -11,7 +11,7 @@ node {
         rtGradle.useWrapper = true
 
     stage 'Exec Gradle'
-        def buildInfo = rtGradle.run rootDir: "./", buildFile: 'build.gradle', tasks: 'clean artifactoryPublish'
+        def buildInfo = rtGradle.run rootDir: "jenkinsfile-example/", buildFile: 'build.gradle', tasks: 'clean artifactoryPublish'
 
     stage 'Publish build info'
         server.publishBuildInfo buildInfo
