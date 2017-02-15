@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+//eclipse plugin configuration
+eclipse.classpath.file {
+    beforeMerged { classpath ->
+        classpath.entries.removeAll { entry -> entry.kind == 'lib' || entry.kind == 'var' }
+    }
+    whenMerged { classpath ->
+        classpath.entries.findAll { entry -> entry.kind == 'lib' }*.exported = false
+    }
+}
+eclipse.project.file.beforeMerged { project ->
+    project.natures.clear()
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'hello.HelloWorld'
+
+dependencies {
+    compile "joda-time:joda-time:2.2"
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+    baseName = 'jenkinsfile-example'
+    version =  '0.1.0'
+}
