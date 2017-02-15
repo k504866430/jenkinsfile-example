@@ -6,7 +6,6 @@ node {
         checkout scm
 
     stage 'Artifactory configuration'
-        rtGradle.tool = GRADLE_TOOL // Tool name from Jenkins configuration
         rtGradle.deployer repo:'gradle-dev-local', server: server
         rtGradle.resolver repo:'remote-repos', server: server
         rtGradle.useWrapper = true
