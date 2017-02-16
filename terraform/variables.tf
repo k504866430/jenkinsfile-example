@@ -31,7 +31,7 @@ variable "private_subnet_cidr" {
 variable "amis" {
   description = "Base AMI to launch the instances with"
   default = {
-    us-west-1 = "ami-049d8641" 
+    us-east-1 = "ami-049d8641" 
     us-east-1 = "ami-a6b8e7ce"
   }
 }
